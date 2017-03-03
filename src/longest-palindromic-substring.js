@@ -1,80 +1,91 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
 // var longestPalindrome = function(s) {
-//   var res = {},
+//   var obj = {},
+//     res = '',
 //     maxL = 0;
 
-//   //c
+//   //长度小于2，返回本身
 //   if (s.length < 2) {
 //     return s;
 //   }
 
-//   s.split('').forEach(function(item, curIndex) {
-//     var index = s.indexOf(item),
-//       length = curIndex - index;
+//   s.split('').forEach(function(elem, index) {
+//     var arr = obj[elem];
+//     if (arr) {
+//       arr.forEach(function(e) {
+//         var str = s.slice(e, index + 1);
 
-//     if (length > maxL) {
-//       maxL = length;
+//         if (checkPalindromis(str) && str.length > maxL) {
+//           res = str;
+//           maxL = str.length;
+//         }
+//       });
+
+//       arr.push(index);
+//     } else {
+//       obj[elem] = [index];
 //     }
-
-//     res[item] = {
-//       length: curIndex - index,
-//       pos: [index, curIndex]
-//     };
 //   });
 
-//   if (maxL === 0) {
-//     return '';
+//   //如果每个都不一样
+//   if (!res) {
+//     return s[0]
 //   }
 
-//   for (var key in res) {
-//     var item = res[key];
-//     if (item.length === maxL) {
-//       return s.substring(item.pos[0], item.pos[1] + 1);
-//     }
-//   }
+//   return res;
 // };
 
-// var longestPalindrome = function(s) {
-//   var res = {},
-//     maxL = 0;
+var longestPalindrome = function(s) {
+  //长度小于2，返回本身
+  if (s.length < 2) {
+    return s;
+  }
 
-//   //c
-//   if (s.length < 2) {
-//     return s;
-//   }
+  var ok = false;
 
-//   s.split('').forEach(function(item, curIndex) {
-//     var index = s.indexOf(item),
-//       length = curIndex - index;
+  function find(arr) {
+    var res = '',
+      newArr = [];
 
-//     if (length > maxL) {
-//       maxL = length;
-//     }
+    for (var i = 0; i < arr.length; i++) {
+      var s = arr[i];
 
-//     res[item] = {
-//       length: curIndex - index,
-//       pos: [index, curIndex]
-//     };
-//   });
+      if (checkPalindromis(s)) {
+        res = s;
+        break;
+      } else {
 
-//   if (maxL === 0) {
-//     return '';
-//   }
+        newArr = newArr.concat(getsubArray(s));
+      }
+    }
 
-//   for (var key in res) {
-//     var item = res[key];
-//     if (item.length === maxL) {
-//       return s.substring(item.pos[0], item.pos[1] + 1);
-//     }
-//   }
-// };
+    if (!!res) {
+      return res;
+    } else {
+      return find(newArr);
+    }
+  }
 
-// var s = 'babad',
-//   s1 = 'cbbd',
-//   s2 = 'c',
-//   s3 = 'ccc',
-//   s4 = 'abc',
-//   s5 = 'abca',
-//   s6 = 'abacdefb',
-//   s7 = 'cbccccc';
+  return find([s]);
+}
 
-// console.log(longestPalindrome(s7))
+function getsubArray(s) {
+  return [s.slice(1), s.slice(0, s.length - 1)]
+}
+
+function checkPalindromis(s) {
+  var l = s.length;
+
+  for (var i = 0; i < parseInt(l / 2); i++) {
+    if (s[i] !== s[l - i - 1]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+console.log(longestPalindrome("abcdasdfghjkldcba"))
