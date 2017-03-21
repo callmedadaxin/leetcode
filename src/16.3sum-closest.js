@@ -34,8 +34,7 @@ var threeSumClosest = function(nums, target) {
       var newTarget = num + nums[left] + nums[right],
         newMin = Math.abs(newTarget - target);
 
-      console.log(newMin, [num, nums[left], nums[right]])
-        //初始值
+      //初始值
       if (!min.value || newMin < min.value) {
         min = {
           value: newMin,
