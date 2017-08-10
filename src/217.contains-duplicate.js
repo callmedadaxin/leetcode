@@ -3,17 +3,14 @@
  * @return {boolean}
  */
 var containsDuplicate = function(nums) {
-  var has = {},
-    l = nums.length
+  let has = {}
 
-  for(let i = 0; i < l; i++) {
-    let num = nums[i]
-
-    if (has[num]) {
+  for(let i = 0; i < nums.length; i++) {
+    if (has[nums[i]]) {
       return true
     }
 
-    has[num] = true
+    has[nums[i]] = true
   }
 
   return false
