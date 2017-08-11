@@ -1,8 +1,9 @@
+
 /**
  * @param {number[]} nums
  * @return {number}
  */
-var cal = function (arr) {
+ var cal = function (arr) {
   return arr.reduce((all, num) => {
     return all * num
   }) 
