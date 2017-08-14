@@ -3,10 +3,8 @@
  * @return {boolean}
  */
 var can = function (arr) {
-  console.log(arr)
   const len = arr.length
   for(let i = len - 1; i >= 0; i--) {
-    console.log(arr[i], len - i + 1)
     if (arr[i] >= len - i + 1) {
       return true
     }
